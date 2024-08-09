@@ -14,10 +14,11 @@ import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
 import { FormFieldType } from "./PatientForm";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Doctors, GenderOptions } from "@/constants";
+import { Doctors, GenderOptions, IdentificationTypes } from "@/constants";
 import { Label } from "../ui/label";
 import {  SelectItem } from "../ui/select";
 import Image from "next/image";
+import FileUploader from "../FileUploader";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -214,7 +215,104 @@ const RegisterForm = ({ user }: { user: User }) => {
 
 
         <div className="flex flex-col gap-6 xl:flex-row">
+        <CustomFormField
+          fieldType={FormFieldType.INPUT}
+          control={form.control}
+          label="Insurance Provider"
+          name="insuranceProvider"
+          placeholder="BlueCross Blue Shield"
+          
+        />
+         <CustomFormField
+          fieldType={FormFieldType.INPUT}
+          control={form.control}
+          label="Insurance policy number"
+          name="insurancePolicyNumber"
+          placeholder="ABC123456789"
+          
+        />
         </div>
+
+        <div className="flex flex-col gap-6 xl:flex-row">
+        <CustomFormField
+          fieldType={FormFieldType.TEXTAREA}
+          control={form.control}
+          label="Allergies (if any)" 
+          name="allergies"
+          placeholder="Peanuts, Pollen, etc."
+          
+        />
+         <CustomFormField
+          fieldType={FormFieldType.TEXTAREA}
+          control={form.control}
+          label="Current Medications (if any)" 
+          name="currentMedications"
+          placeholder="Ibuprofen 200mg, Paracetamol 500mg, etc."
+          
+        />
+        </div>
+
+        <div className="flex flex-col gap-6 xl:flex-row">
+        <CustomFormField
+          fieldType={FormFieldType.TEXTAREA}
+          control={form.control}
+          label="Family Medical History" 
+          name="familyMedicalHistory"
+          placeholder="Diabetes, Hypertension, etc."
+          
+        />
+         <CustomFormField
+          fieldType={FormFieldType.TEXTAREA}
+          control={form.control}
+          label="Past Medical History" 
+          name="pastMediaclHistory"
+          placeholder="Asthma, Heart Attack, etc."
+          
+        />
+        </div>
+
+        <section className="space-y-6">
+          <div className="mb-9 space-y-1">
+            <h2 className="sub-header">Identification and Varification</h2>
+          </div>
+        </section>
+
+        <CustomFormField
+            fieldType={FormFieldType.SELECT}
+            control={form.control}
+            name="identificationType"
+            label="Identification Type"
+            placeholder="Select an identification type"
+          >
+            {IdentificationTypes.map((identification) => (
+              <SelectItem 
+              key={identification}
+              value={identification}
+              >
+               {identification}
+             </SelectItem>
+            ))}
+          </CustomFormField>
+          <CustomFormField
+            fieldType={FormFieldType.INPUT}
+            control={form.control}
+            name="identificationNumber"
+            label="Identification Number"
+            placeholder="1234567890"
+          />
+
+<CustomFormField
+            fieldType={FormFieldType.SKELEON}
+            control={form.control}
+            name="identificationDocument"
+            label="Scan copy of identification document"
+            renderSkeleton={(field) => (
+              <FormControl>
+                 <FileUploader />
+              </FormControl>
+            )}
+          />
+
         <div className="flex flex-col gap-6 xl:flex-row">
         </div>
 
