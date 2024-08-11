@@ -29,16 +29,19 @@ export const createUser = async (user: CreateUserParams) => {
   };
 
 
-export const getUser  = async (userID : string) => {
- try {
-  const user =  await users.get(userID)
-
-  return parseStringify(user)
- } catch (error) {
-  console.log(error)
-
- }
-}
+export const getUser = async (userId: string) => {
+    try {
+      console.log('User data')
+      const user = await users.get(userId);
+       console.log(user)
+      return parseStringify(user);
+    } catch (error) {
+      console.error(
+        "An error occurred while retrieving the user details:",
+        error
+      );
+    }
+  };
 
  export const registerPatient = async ({ identificationDocument , ...patient} : RegisterUserParams) => {
   try {
