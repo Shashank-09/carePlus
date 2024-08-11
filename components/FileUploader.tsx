@@ -36,16 +36,16 @@ type FileUploaderProps = {
             width={40}
             alt="upload"
          />
-         <div>
-             jbkjblkkb
+         <div className='file-upload_label'>
+            <p className='text-14-regular'>
+              <span className='text-green-500'>Click to upload</span> or darg to drop
+
+            </p>
+            <p>SVG , PNG , JPG , or GIF (max 800x400)</p>
          </div>
          </>
       )}
-      {
-        isDragActive ?
-          <p>Drop the files here ...</p> :
-          <p>Drag 'n' drop some files here, or click to select files</p>
-      }
+      
     </div>
   )
 }

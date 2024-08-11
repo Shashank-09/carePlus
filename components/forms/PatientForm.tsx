@@ -23,7 +23,7 @@ export enum  FormFieldType {
     CHECKBOX = 'checkbox',
     DATE_PICKER = 'datePicker',
     SELECT = 'select',
-    SKELEON = 'skeleton '   
+    SKELETON = 'skeleton'   
 }
 
 const formSchema = z.object({
