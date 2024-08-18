@@ -8,6 +8,8 @@ import { Doctors } from "@/constants";
 import Image from "next/image";
 import AppoinmentModal from "../AppoinmentModal";
 import { Appointment } from "@/types/appwrite.types";
+import { ArrowUpDown } from "lucide-react"
+import { Button } from "../ui/button";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -25,10 +27,37 @@ export const columns: ColumnDef<Appointment>[] = [
   },
   {
     accessorKey: "patient",
-    header: "Patient",
-    filterFn: 'includesString', 
+    // header: "Patient",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Patient
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    
+    accessorFn: (row) => row.patient.name, 
     cell: ({ row }) => (
       <p className="text-14-medium">{row.original.patient.name}</p>
+    ),
+  },
+  {
+    accessorKey: "phone",
+    header: "Phone Number",
+    cell: ({ row }) => (
+      <p className="text-14-regular">{row.original.patient.phone}</p>
+    ),
+
+  },
+  {
+    accessorKey: 'reason',
+    header: "Reason",
+    cell: ({ row }) => (
+      <p className="text-14-regular">{row.original.reason}</p>
     ),
   },
   {
@@ -59,8 +88,8 @@ export const columns: ColumnDef<Appointment>[] = [
       return (
         <div className="flex items-center gap-3">
           <Image
-            src={doctor?.image}
-            alt={doctor.name}
+            src={doctor?.image || ''}
+            alt={doctor?.name || ''}
             width={100}
             height={100}
             className="size-8"

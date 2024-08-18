@@ -8,6 +8,8 @@ import {
   getPaginationRowModel,
   getFilteredRowModel,
   ColumnFiltersState,
+  SortingState,
+  getSortedRowModel
 } from "@tanstack/react-table"
 
 import {
@@ -23,6 +25,13 @@ import Image from "next/image"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
 
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
@@ -32,9 +41,8 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-    []
-  )
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [sorting, setSorting] = useState<SortingState>([])
   const table = useReactTable({
     data,
     columns,
@@ -42,14 +50,17 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     state: {
       columnFilters,
+      sorting
     },
   })
 
   return (
     <div className="data-table">
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 px-3">
         <Input
           placeholder="Search by name"
           value={(table.getColumn("patient")?.getFilterValue() as string) ?? ""}
@@ -58,7 +69,37 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+      {/* <DropdownMenu>
+          <DropdownMenuTrigger  asChild>
+            <Button variant="outline" className="ml-auto flex items-center py-4 px-3">
+              Columns
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter(
+                (column) => column.getCanHide()
+              )
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize shad-column"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                    column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                )
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu> */}
       </div>
+
+
       <Table className="shad-table">
         <TableHeader className="bg-dark-200">
           {table.getHeaderGroups().map((headerGroup) => (

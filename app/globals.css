@@ -344,6 +344,10 @@
   font-size: 14px;
   font-weight: 500;
 }
+.shad-column {
+  outline: none;
+  background: #1a1d21;
+}
 
 .PhoneInputInput::placeholder {
   color: #1a1d21;
