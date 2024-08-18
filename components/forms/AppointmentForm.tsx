@@ -15,15 +15,15 @@ import Image from "next/image";
 import { createAppointment, updateAppointment } from "@/lib/actions/appointment.actions";
 import { useRouter } from "next/navigation";
 import { Appointment } from "@/types/appwrite.types";
-import { scheduler } from "timers/promises";
-import { newDate } from "react-datepicker/dist/date_utils";
+import { Dispatch, SetStateAction } from "react";
+
 
 const AppointmentForm = ({ type , userId , patientId , appointment , setOpen} : {
   type : 'create' | 'cancel' | 'schedule',
   userId : string,
   patientId : string,
   appointment? : Appointment,
-  setOpen : (open : boolean) => void
+  setOpen?: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();

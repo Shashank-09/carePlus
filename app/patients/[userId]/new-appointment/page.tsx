@@ -17,11 +17,11 @@ const NewAppointment = async ({ params : {userId}}  : SearchParamProps) => {
                 className="mb-12 h-10 w-fit"
               />
     
-               <AppointmentForm 
-                  type = 'create'
-                  userId = {userId}
-                  patientId = {patient?.$id}
-               />
+              <AppointmentForm 
+                 type = 'create'
+                 userId = {userId}
+                 patientId = {patient?.$id}
+              />
     
               <p className="copyright py-12">© 2024 CarePluse</p>
             </div>
