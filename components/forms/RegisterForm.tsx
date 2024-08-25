@@ -14,9 +14,19 @@ import { useRouter } from "next/navigation";
 import { createUser, registerPatient } from "@/lib/actions/patient.actions";
 import { FormFieldType } from "./PatientForm";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Doctors, GenderOptions, IdentificationTypes  , PatientFormDefaultValues} from "@/constants";
+import {
+  Doctors,
+  GenderOptions,
+  IdentificationTypes,
+  PatientFormDefaultValues,
+} from "@/constants";
 import { Label } from "../ui/label";
-import {  SelectItem } from "../ui/select";
+import {
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import Image from "next/image";
 import FileUploader from "../FileUploader";
 
@@ -37,7 +47,6 @@ const RegisterForm = ({ user }: { user: User }) => {
       name: user?.name || "",
       email: user?.email || "",
       phone: user?.phone || "",
-
     },
   });
 
@@ -48,27 +57,31 @@ const RegisterForm = ({ user }: { user: User }) => {
 
     let formData;
 
-    if(values.identificationDocument && values.identificationDocument.length > 0){
-     const blobFile = new Blob([values.identificationDocument[0]], 
-      { type: values.identificationDocument[0].type });
+    if (
+      values.identificationDocument &&
+      values.identificationDocument.length > 0
+    ) {
+      const blobFile = new Blob([values.identificationDocument[0]], {
+        type: values.identificationDocument[0].type,
+      });
 
-     formData = new FormData();
-     formData.append('blobFile', blobFile);
-     formData.append('fileName' , values.identificationDocument[0].name);
+      formData = new FormData();
+      formData.append("blobFile", blobFile);
+      formData.append("fileName", values.identificationDocument[0].name);
     }
 
     try {
       const patientData = {
         ...values,
-        userId : user.$id,
-        birthDate : new Date(values.birthDate),
-        identificationDocument : formData,
-      }
-       
+        userId: user.$id,
+        birthDate: new Date(values.birthDate),
+        identificationDocument: formData,
+      };
+
       // @ts-ignore
       const patient = await registerPatient(patientData);
 
-      if(patient) router.push(`/patients/${user.$id}/new-appointment`);
+      if (patient) router.push(`/patients/${user.$id}/new-appointment`);
     } catch (error) {
       console.log(error);
     }
@@ -217,14 +230,17 @@ const RegisterForm = ({ user }: { user: User }) => {
                     width={32}
                     height={32}
                     alt="doctor"
-                    className="rounded-full border border-dark-500"
+                    className="rounded-full border border-dark-500 "
                   />
-                  <p>{doctor.name}</p>
-                </div>
+          <div className="flex flex-col w-full max-w-[300px] sm:max-w-[400px] md:max-w-[600px]">
+          <p className="font-medium flex">{doctor.name}</p>
+          <p className="text-sm text-gray-500 mt-1 text-nowrap">{doctor.description}</p>
+        </div>
+        </div>
+                  
               </SelectItem>
             ))}
           </CustomFormField>
-
           {/* INSURANCE & POLICY NUMBER */}
           <div className="flex flex-col gap-6 xl:flex-row">
             <CustomFormField
@@ -357,8 +373,5 @@ const RegisterForm = ({ user }: { user: User }) => {
     </Form>
   );
 };
-
-
-
 
 export default RegisterForm;

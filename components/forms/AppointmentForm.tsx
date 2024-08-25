@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import {  useState } from "react";
 import { Form } from "../ui/form";
 import CustomFormField from "../CustomFormField";
 import { FormFieldType } from "./PatientForm";
@@ -14,11 +14,11 @@ import { SelectItem } from "../ui/select";
 import Image from "next/image";
 import { createAppointment, updateAppointment } from "@/lib/actions/appointment.actions";
 import { useRouter } from "next/navigation";
-import { Appointment } from "@/types/appwrite.types";
+import { Appointment, Patient } from "@/types/appwrite.types";
 import { Dispatch, SetStateAction } from "react";
 
 
-const AppointmentForm = ({ type , userId , patientId , appointment , setOpen} : {
+const AppointmentForm = ({ type , userId , patientId , appointment , setOpen } : {
   type : 'create' | 'cancel' | 'schedule',
   userId : string,
   patientId : string,
@@ -41,10 +41,12 @@ const AppointmentForm = ({ type , userId , patientId , appointment , setOpen} : 
     },
   });
 
-  console.log({
-    type , userId , patientId , appointment
-  })
+  // console.log({
+  //   type , userId , patientId , appointment
+  // })
 
+  
+  
   async function onSubmit(values: z.infer<typeof AppointmentFormValidation>) {
     console.log('Submitting', {type});
     setIsLoading(true);

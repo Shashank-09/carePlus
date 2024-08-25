@@ -219,7 +219,7 @@
   }
 
   .shad-select-trigger {
-    @apply bg-dark-400  placeholder:text-dark-600 border-dark-500 h-11 focus:ring-0 focus:ring-offset-0 !important;
+    @apply bg-dark-400  placeholder:text-dark-600 border-dark-500 h-14 focus:ring-0 focus:ring-offset-0 !important;
   }
 
   .shad-select-content {
@@ -274,6 +274,10 @@
   /* =====  REACT DATE PICKER OVERRIDES */
   .date-picker {
     @apply overflow-hidden border-transparent w-full placeholder:text-dark-600  h-11 text-14-medium rounded-md px-3 outline-none !important;
+  }
+
+  .auth-page {
+    @apply flex h-screen w-full flex-col items-center justify-center gap-10;
   }
 }
 

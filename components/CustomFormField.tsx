@@ -20,6 +20,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select"
 import { Textarea } from "./ui/textarea"
 import { Checkbox } from "./ui/checkbox"
+import { Doctors } from '@/constants';
 
 
 interface  CustomPropes {
@@ -114,8 +115,8 @@ const RenderField =  ({field, props} : {field : any;  props: CustomPropes}) =>  
         <Select onValueChange={field.onChange} defaultValue={field.value}>
          <FormControl >
            <SelectTrigger className="shad-select-trigger">
-           <SelectValue placeholder={placeholder} />
-           </SelectTrigger>
+           <SelectValue placeholder={placeholder}  />
+            </SelectTrigger>
          </FormControl>
          <SelectContent className="shad-select-content">
               {props.children}

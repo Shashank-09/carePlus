@@ -54,6 +54,13 @@ export const columns: ColumnDef<Appointment>[] = [
 
   },
   {
+    accessorKey: "email",
+    header: "Email",
+    cell: ({ row }) => (
+      <p className="text-14-regular">{row.original.patient.email}</p>
+    ),
+  },
+  {
     accessorKey: 'reason',
     header: "Reason",
     cell: ({ row }) => (
